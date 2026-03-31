@@ -10,11 +10,21 @@ import Calculator from "./pages/Calculator";
 import AIEngine from "./pages/AIEngine";
 import AdminCMS from "./pages/admin/AdminCMS";
 import SettingsPage from "./pages/SettingsPage";
+import Login from "./pages/Login";
+import { RequireAuth } from "./components/RequireAuth";
 
 export const router = createBrowserRouter([
   {
+    path: "/login",
+    element: <Login />,
+  },
+  {
     path: "/",
-    element: <AppShell />,
+    element: (
+      <RequireAuth>
+        <AppShell />
+      </RequireAuth>
+    ),
     children: [
       { index: true, element: <Dashboard /> },
       { path: "data-hub", element: <DataHub /> },

@@ -1,54 +1,65 @@
-import toast from "react-hot-toast";
-
-const items = [
-  { name: "Fintech México", value: 7699, pnl: 6.25 },
-  { name: "AgroTech Arg", value: 1340, pnl: 5.67 },
-  { name: "Energía Brasil", value: 540, pnl: -1.89 },
-];
+import { useQuery } from "@tanstack/react-query";
+import { listOrders } from "../lib/db";
 
 export default function Investments() {
+  const ordersQuery = useQuery({
+    queryKey: ["orders"],
+    queryFn: async () => {
+      const { data, error } = await listOrders();
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+
+  const orders = ordersQuery.data ?? [];
+
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-white">Mis Inversiones</h1>
-        <p className="text-sm text-gray-500 mt-1">
-          Lista demo (estructura lista para conectarse a base de datos).
-        </p>
+        <h1 className="text-3xl font-bold text-white">My assets</h1>
+        <p className="text-sm text-gray-500 mt-1">Órdenes reales (desde DB).</p>
       </div>
 
       <div className="bg-[#121216] border border-[#1f1f25] rounded-3xl p-6">
         <div className="overflow-x-auto">
-          <table className="min-w-[520px] w-full text-sm">
+          <table className="min-w-[720px] w-full text-sm">
             <thead>
               <tr className="text-left text-gray-500">
-                <th className="py-3">Activo</th>
-                <th className="py-3">Valor</th>
-                <th className="py-3">P&L 24h</th>
-                <th className="py-3"></th>
+                <th className="py-3">Created</th>
+                <th className="py-3">Opportunity</th>
+                <th className="py-3">Amount</th>
+                <th className="py-3">Status</th>
               </tr>
             </thead>
             <tbody>
-              {items.map((it) => (
-                <tr key={it.name} className="border-t border-[#1f1f25]">
-                  <td className="py-3 text-white font-medium">{it.name}</td>
-                  <td className="py-3 text-gray-300">${it.value.toLocaleString()}</td>
-                  <td
-                    className={`py-3 ${it.pnl >= 0 ? "text-green-400" : "text-red-400"}`}
-                  >
-                    {it.pnl >= 0 ? "+" : ""}
-                    {it.pnl}%
+              {orders.map((o: any) => (
+                <tr key={o.id} className="border-t border-[#1f1f25]">
+                  <td className="py-3 text-gray-300">
+                    {new Date(o.created_at).toLocaleString("es-MX")}
                   </td>
-                  <td className="py-3 text-right">
-                    <button
-                      type="button"
-                      className="bg-[#16161a] border border-[#1f1f25] text-gray-200 px-3 py-2 rounded-lg hover:bg-[#1f1f25]"
-                      onClick={() => toast(`Abrir detalle: ${it.name} (demo)`)}
-                    >
-                      Ver
-                    </button>
+                  <td className="py-3 text-white font-medium">
+                    {o.opportunities?.title ?? "—"}
+                    <div className="text-xs text-gray-500">
+                      {o.opportunities?.countries?.name ?? ""}
+                      {o.opportunities?.industries?.name
+                        ? ` • ${o.opportunities.industries.name}`
+                        : ""}
+                    </div>
                   </td>
+                  <td className="py-3 text-gray-300">
+                    {o.currency?.toUpperCase?.() ?? "USD"} {Number(o.amount).toLocaleString()}
+                  </td>
+                  <td className="py-3 text-gray-300">{o.status}</td>
                 </tr>
               ))}
+
+              {orders.length === 0 && !ordersQuery.isLoading && (
+                <tr>
+                  <td className="py-6 text-gray-500" colSpan={4}>
+                    No hay órdenes todavía.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

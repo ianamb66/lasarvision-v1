@@ -49,7 +49,7 @@ export default function AppShell() {
               MI
             </div>
             <span className="text-white font-bold text-lg tracking-wide">
-              Lasarvision<span className="text-gray-500"> v1</span>
+              Laservision<span className="text-gray-500"> v1</span>
               <span className="text-gray-500 text-xs font-medium ml-2 align-middle">
                 by Ian
               </span>
@@ -166,7 +166,7 @@ export default function AppShell() {
         </div>
 
         <div className="px-6 pb-6">
-          <p className="text-[10px] text-gray-600">Lasarvision v1 — by Ian</p>
+          <p className="text-[10px] text-gray-600">Laservision v1 — by Ian</p>
         </div>
       </aside>
 
@@ -201,7 +201,7 @@ export default function AppShell() {
           <Outlet />
           <footer className="mt-10 pt-6 border-t border-[#1f1f25]">
             <p className="text-center text-xs text-gray-600">
-              Lasarvision v1 — by Ian
+              Laservision v1 — by Ian
             </p>
           </footer>
         </div>
