@@ -9,7 +9,6 @@ import {
   Search,
   Bell,
   ChevronRight,
-  ArrowUpRight,
   TrendingUp,
   Zap,
   Globe,
@@ -19,8 +18,26 @@ function cx(...c: Array<string | false | null | undefined>) {
   return c.filter(Boolean).join(" ");
 }
 
+type NavItem = {
+  id: string;
+  icon: any;
+  label: string;
+  badge?: string;
+};
+
 export default function AppShell() {
   const navigate = useNavigate();
+
+  const nav: NavItem[] = [
+    { id: "/", icon: Home, label: "Market Dashboard" },
+    { id: "/data-hub", icon: BarChart2, label: "Data Hub" },
+    { id: "/markets/country/mexico", icon: Globe, label: "Country profile" },
+    { id: "/partners", icon: TrendingUp, label: "Partner discovery" },
+    { id: "/marketplace", icon: Briefcase, label: "Opportunity Marketplace" },
+    { id: "/investments", icon: PieChart, label: "My assets" },
+    { id: "/ai", icon: Cpu, label: "AI GTM Builder", badge: "v1" },
+    { id: "/admin", icon: Settings, label: "Admin / CMS" },
+  ];
 
   return (
     <div className="min-h-screen bg-[#0b0b0f] text-gray-300 font-sans flex overflow-hidden">
@@ -53,17 +70,21 @@ export default function AppShell() {
               <p className="text-sm text-white font-semibold">Grupo Inversor</p>
             </div>
           </div>
-          <button className="w-full mt-4 bg-[#c8b6ff] hover:bg-[#b096ff] text-black font-semibold py-2.5 rounded-xl text-sm transition-colors">
+          <button
+            className="w-full mt-4 bg-[#c8b6ff] hover:bg-[#b096ff] text-black font-semibold py-2.5 rounded-xl text-sm transition-colors"
+            type="button"
+            onClick={() => navigate("/marketplace")}
+          >
             Publicar Oportunidad
           </button>
         </div>
 
         <div className="px-4 space-y-1 mb-6">
           <div className="flex gap-2 mb-4 bg-[#16161a] p-1 rounded-xl">
-            <button className="flex-1 bg-[#26262f] text-white text-xs py-1.5 rounded-lg font-medium">
+            <button className="flex-1 bg-[#26262f] text-white text-xs py-1.5 rounded-lg font-medium" type="button">
               Mercados
             </button>
-            <button className="flex-1 text-gray-500 text-xs py-1.5 rounded-lg font-medium hover:text-white">
+            <button className="flex-1 text-gray-500 text-xs py-1.5 rounded-lg font-medium hover:text-white" type="button">
               Sectores
             </button>
           </div>
@@ -72,14 +93,7 @@ export default function AppShell() {
             Plataforma
           </p>
 
-          {[
-            { id: "/", icon: Home, label: "Dashboard" },
-            { id: "/investments", icon: PieChart, label: "Mis Inversiones" },
-            { id: "/marketplace", icon: Briefcase, label: "Marketplace" },
-            { id: "/calculator", icon: BarChart2, label: "Calculadora ROI" },
-            { id: "/api", icon: Globe, label: "API Externa", external: true },
-            { id: "/ai", icon: Cpu, label: "Motor IA", badge: "Beta" },
-          ].map((item) => (
+          {nav.map((item) => (
             <NavLink
               key={item.id}
               to={item.id}
@@ -92,21 +106,11 @@ export default function AppShell() {
                 )
               }
               end={item.id === "/"}
-              onClick={(e) => {
-                if (item.external) {
-                  e.preventDefault();
-                  window.open(
-                    "https://www.coingecko.com/en/api/documentation",
-                    "_blank"
-                  );
-                }
-              }}
             >
               <div className="flex items-center gap-3">
                 <item.icon className="w-4 h-4" />
                 <span>{item.label}</span>
               </div>
-              {item.external && <ArrowUpRight className="w-3 h-3" />}
               {item.badge && (
                 <span className="bg-[#c8b6ff] text-black text-[10px] px-2 py-0.5 rounded-full font-bold">
                   {item.badge}
