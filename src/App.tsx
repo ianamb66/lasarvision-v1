@@ -226,27 +226,29 @@ export default function App() {
       {/* --- MAIN CONTENT --- */}
       <main className="flex-1 flex flex-col h-screen overflow-hidden bg-[#0b0b0f]">
         {/* Top Header */}
-        <header className="h-16 flex items-center justify-end px-8 gap-6 flex-shrink-0">
-          <div className="flex items-center gap-4 bg-[#16161a] border border-[#1f1f25] px-3 py-1.5 rounded-full">
+        <header className="min-h-16 flex items-center justify-between md:justify-end px-4 sm:px-6 lg:px-8 gap-3 sm:gap-4 flex-shrink-0 flex-wrap">
+          <div className="flex items-center gap-3 bg-[#16161a] border border-[#1f1f25] px-3 py-1.5 rounded-full w-full sm:w-auto">
             <Search className="w-4 h-4 text-gray-500" />
             <input
               type="text"
               placeholder="Search..."
-              className="bg-transparent border-none text-sm text-white focus:outline-none w-32"
+              className="bg-transparent border-none text-sm text-white focus:outline-none w-full sm:w-48"
             />
           </div>
-          <div className="relative cursor-pointer">
-            <Bell className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
-            <span className="absolute -top-1 -right-1 w-3 h-3 bg-[#c8b6ff] rounded-full border-2 border-[#0b0b0f]" />
+          <div className="flex items-center gap-4 sm:gap-6">
+            <div className="relative cursor-pointer">
+              <Bell className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-[#c8b6ff] rounded-full border-2 border-[#0b0b0f]" />
+            </div>
+            <button className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+              <Settings className="w-5 h-5" />
+              <span className="text-sm font-medium hidden sm:inline">Settings</span>
+            </button>
           </div>
-          <button className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
-            <Settings className="w-5 h-5" />
-            <span className="text-sm font-medium">Settings</span>
-          </button>
         </header>
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto p-8 pt-2">
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pt-2">
           {/* Section Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
             <div>
@@ -260,11 +262,11 @@ export default function App() {
                 Oportunidades Principales
               </h1>
             </div>
-            <div className="flex gap-2 mt-4 md:mt-0">
+            <div className="flex gap-2 mt-4 md:mt-0 flex-wrap">
               {["24H", "Sectores", "Desc"].map((filter) => (
                 <button
                   key={filter}
-                  className="bg-[#16161a] border border-[#1f1f25] text-gray-300 text-sm px-4 py-2 rounded-lg hover:bg-[#1f1f25] transition-colors flex items-center gap-2"
+                  className="bg-[#16161a] border border-[#1f1f25] text-gray-300 text-sm px-3 py-2 rounded-lg hover:bg-[#1f1f25] transition-colors flex items-center gap-2"
                 >
                   {filter} <ChevronRight className="w-3 h-3 rotate-90" />
                 </button>
@@ -409,7 +411,7 @@ export default function App() {
                   Última actualización - Hace 45 minutos <Settings className="w-3 h-3" />
                 </p>
 
-                <div className="flex items-center gap-4 mb-4">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4">
                   <h2 className="text-2xl font-bold text-white flex items-center gap-2">
                     Expansión Fintech (México)
                     <div className="bg-red-500/20 p-1 rounded">
@@ -417,15 +419,16 @@ export default function App() {
                     </div>
                   </h2>
 
-                  <div className="flex gap-2">
-                    <button className="w-8 h-8 rounded-lg bg-[#1a1a20] border border-[#2a2a35] flex items-center justify-center hover:bg-[#2a2a35] transition-colors">
+                  <div className="flex flex-wrap gap-2 sm:ml-auto">
+                    <button className="w-9 h-9 sm:w-8 sm:h-8 rounded-lg bg-[#1a1a20] border border-[#2a2a35] flex items-center justify-center hover:bg-[#2a2a35] transition-colors">
                       <Link2 className="w-4 h-4 text-gray-400" />
                     </button>
-                    <button className="w-8 h-8 rounded-lg bg-[#1a1a20] border border-[#2a2a35] flex items-center justify-center hover:bg-[#2a2a35] transition-colors">
+                    <button className="w-9 h-9 sm:w-8 sm:h-8 rounded-lg bg-[#1a1a20] border border-[#2a2a35] flex items-center justify-center hover:bg-[#2a2a35] transition-colors">
                       <Share2 className="w-4 h-4 text-gray-400" />
                     </button>
-                    <button className="px-3 h-8 rounded-lg bg-[#1a1a20] border border-[#2a2a35] flex items-center gap-2 text-xs text-gray-300 hover:bg-[#2a2a35] transition-colors">
-                      Ver Perfil <ArrowUpRight className="w-3 h-3" />
+                    <button className="px-3 h-9 sm:h-8 rounded-lg bg-[#1a1a20] border border-[#2a2a35] flex items-center gap-2 text-xs text-gray-300 hover:bg-[#2a2a35] transition-colors">
+                      <span className="hidden sm:inline">Ver Perfil</span>
+                      <ArrowUpRight className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
@@ -434,17 +437,17 @@ export default function App() {
                   Volumen de Mercado Proyectado, MXN
                 </p>
 
-                <div className="flex items-end gap-4">
-                  <span className="text-5xl font-light text-white tracking-tight">
+                <div className="flex flex-col sm:flex-row sm:items-end gap-4">
+                  <span className="text-4xl sm:text-5xl font-light text-white tracking-tight">
                     31.39686
-                    <span className="text-2xl text-gray-500">M</span>
+                    <span className="text-xl sm:text-2xl text-gray-500">M</span>
                   </span>
 
-                  <div className="flex gap-2 mb-1">
-                    <button className="bg-[#c8b6ff] text-black px-4 py-2 rounded-xl text-sm font-bold">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:mb-1 w-full sm:w-auto">
+                    <button className="bg-[#c8b6ff] text-black px-4 py-2.5 rounded-xl text-sm font-bold w-full sm:w-auto">
                       Invertir
                     </button>
-                    <button className="bg-[#1f1f25] text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-[#2a2a35] transition-colors">
+                    <button className="bg-[#1f1f25] text-white px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-[#2a2a35] transition-colors w-full sm:w-auto">
                       Contactar Socio
                     </button>
                   </div>
@@ -482,93 +485,90 @@ export default function App() {
             </div>
 
             {/* Bottom Stats Row */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 pt-6 relative">
-              {/* Headers */}
-              <div className="absolute -top-[14px] left-0 right-0 flex justify-between px-8">
-                <div className="flex items-center gap-2 bg-[#121216] px-2">
-                  <ChevronRight className="w-3 h-3 text-gray-600 rotate-180" />
-                  <span className="text-[10px] font-bold uppercase text-gray-400">
-                    Momentum
-                  </span>
-                  <ChevronRight className="w-3 h-3 text-gray-600" />
-                </div>
-                <div className="flex items-center gap-2 bg-[#121216] px-2">
-                  <span className="text-[10px] font-bold uppercase text-gray-400">
-                    General
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 bg-[#121216] px-2">
-                  <ChevronRight className="w-3 h-3 text-gray-600 rotate-180" />
-                  <span className="text-[10px] font-bold uppercase text-gray-400">
-                    Riesgo
-                  </span>
-                  <ChevronRight className="w-3 h-3 text-gray-600" />
-                </div>
-                <div className="flex items-center gap-2 bg-[#121216] px-2">
-                  <ChevronRight className="w-3 h-3 text-gray-600 rotate-180" />
-                  <span className="text-[10px] font-bold uppercase text-gray-400">
-                    Retorno
-                  </span>
-                  <ChevronRight className="w-3 h-3 text-gray-600" />
-                </div>
+            <div className="pt-6">
+              {/* Headers (scrollable on mobile) */}
+              <div className="flex items-center justify-between gap-6 overflow-x-auto pb-3 mb-3 border-b border-[#1f1f25]">
+                {[
+                  { label: "Momentum", sides: true },
+                  { label: "General" },
+                  { label: "Riesgo", sides: true },
+                  { label: "Retorno", sides: true },
+                ].map((h) => (
+                  <div
+                    key={h.label}
+                    className="flex items-center gap-2 bg-[#121216] px-2 shrink-0"
+                  >
+                    {h.sides && (
+                      <ChevronRight className="w-3 h-3 text-gray-600 rotate-180" />
+                    )}
+                    <span className="text-[10px] font-bold uppercase text-gray-400">
+                      {h.label}
+                    </span>
+                    {h.sides && (
+                      <ChevronRight className="w-3 h-3 text-gray-600" />
+                    )}
+                  </div>
+                ))}
               </div>
 
-              <div className="bg-[#0b0b0f] rounded-2xl p-4 border border-[#1f1f25]">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-xs text-gray-500">Crecimiento Sectorial</span>
-                  <span className="text-[10px] bg-[#16161a] px-1.5 py-0.5 rounded text-gray-400 border border-[#1f1f25]">
-                    24H
-                  </span>
-                </div>
-                <p className="text-2xl font-bold text-white">-0.82%</p>
-              </div>
-
-              <div className="bg-[#0b0b0f] rounded-2xl p-4 border border-[#1f1f25]">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-xs text-gray-500">Ticket Promedio</span>
-                  <span className="text-[10px] bg-[#16161a] px-1.5 py-0.5 rounded text-gray-400 border border-[#1f1f25]">
-                    24H
-                  </span>
-                </div>
-                <p className="text-2xl font-bold text-white flex items-end gap-1">
-                  $41.99
-                  <span className="text-xs text-red-500 font-normal flex items-center mb-1">
-                    <ArrowDownRight className="w-3 h-3" />-1.09%
-                  </span>
-                </p>
-              </div>
-
-              <div className="bg-[#0b0b0f] rounded-2xl p-4 border border-[#1f1f25]">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-xs text-gray-500">Ratio de Inversión</span>
-                  <span className="text-[10px] bg-[#16161a] px-1.5 py-0.5 rounded text-gray-400 border border-[#1f1f25]">
-                    24H
-                  </span>
-                </div>
-                <p className="text-2xl font-bold text-white">60.6%</p>
-              </div>
-
-              <div className="bg-[#0b0b0f] rounded-2xl p-4 border border-[#1f1f25] flex flex-col justify-center">
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-xs text-gray-500">Tasa de Retorno (IRR)</span>
-                </div>
-                <div className="space-y-2 relative">
-                  <div className="flex items-center gap-2">
-                    <div className="w-full bg-[#1f1f25] h-1.5 rounded-full relative">
-                      <div className="absolute top-0 left-0 bg-[#c8b6ff] h-full w-[80%] rounded-full shadow-[0_0_10px_rgba(200,182,255,0.5)]" />
-                      <div className="absolute top-1/2 left-[80%] -translate-y-1/2 w-2.5 h-2.5 bg-white rounded-full" />
-                    </div>
-                    <span className="text-[10px] text-white whitespace-nowrap">
-                      2.23% <span className="text-gray-600">24H Ago</span>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div className="bg-[#0b0b0f] rounded-2xl p-4 border border-[#1f1f25]">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-xs text-gray-500">Crecimiento Sectorial</span>
+                    <span className="text-[10px] bg-[#16161a] px-1.5 py-0.5 rounded text-gray-400 border border-[#1f1f25]">
+                      24H
                     </span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-[60%] bg-[#1f1f25] h-1.5 rounded-full relative">
-                      <div className="absolute top-0 left-0 bg-gray-500 h-full w-full rounded-full" />
-                    </div>
-                    <span className="text-[10px] text-gray-500 whitespace-nowrap">
-                      1.46% <span className="text-gray-700">48H Ago</span>
+                  <p className="text-2xl font-bold text-white">-0.82%</p>
+                </div>
+
+                <div className="bg-[#0b0b0f] rounded-2xl p-4 border border-[#1f1f25]">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-xs text-gray-500">Ticket Promedio</span>
+                    <span className="text-[10px] bg-[#16161a] px-1.5 py-0.5 rounded text-gray-400 border border-[#1f1f25]">
+                      24H
                     </span>
+                  </div>
+                  <p className="text-2xl font-bold text-white flex items-end gap-1">
+                    $41.99
+                    <span className="text-xs text-red-500 font-normal flex items-center mb-1">
+                      <ArrowDownRight className="w-3 h-3" />-1.09%
+                    </span>
+                  </p>
+                </div>
+
+                <div className="bg-[#0b0b0f] rounded-2xl p-4 border border-[#1f1f25]">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-xs text-gray-500">Ratio de Inversión</span>
+                    <span className="text-[10px] bg-[#16161a] px-1.5 py-0.5 rounded text-gray-400 border border-[#1f1f25]">
+                      24H
+                    </span>
+                  </div>
+                  <p className="text-2xl font-bold text-white">60.6%</p>
+                </div>
+
+                <div className="bg-[#0b0b0f] rounded-2xl p-4 border border-[#1f1f25] flex flex-col justify-center">
+                  <div className="flex justify-between items-center mb-3">
+                    <span className="text-xs text-gray-500">Tasa de Retorno (IRR)</span>
+                  </div>
+                  <div className="space-y-2 relative">
+                    <div className="flex items-center gap-2">
+                      <div className="w-full bg-[#1f1f25] h-1.5 rounded-full relative">
+                        <div className="absolute top-0 left-0 bg-[#c8b6ff] h-full w-[80%] rounded-full shadow-[0_0_10px_rgba(200,182,255,0.5)]" />
+                        <div className="absolute top-1/2 left-[80%] -translate-y-1/2 w-2.5 h-2.5 bg-white rounded-full" />
+                      </div>
+                      <span className="text-[10px] text-white whitespace-nowrap">
+                        2.23% <span className="text-gray-600">24H Ago</span>
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-[60%] bg-[#1f1f25] h-1.5 rounded-full relative">
+                        <div className="absolute top-0 left-0 bg-gray-500 h-full w-full rounded-full" />
+                      </div>
+                      <span className="text-[10px] text-gray-500 whitespace-nowrap">
+                        1.46% <span className="text-gray-700">48H Ago</span>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
