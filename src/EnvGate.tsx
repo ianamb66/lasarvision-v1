@@ -2,32 +2,26 @@ export function EnvGate({ children }: { children: React.ReactNode }) {
   const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
   const key = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
 
-  if (!url || !key) {
-    return (
-      <div className="min-h-screen bg-[#0b0b0f] text-gray-200 flex items-center justify-center p-6">
-        <div className="max-w-xl w-full bg-[#121216] border border-[#1f1f25] rounded-3xl p-6">
-          <h1 className="text-2xl font-bold text-white">Laservision v1</h1>
-          <p className="text-sm text-gray-400 mt-2">
-            Falta configurar Supabase en Vercel.
-          </p>
-          <div className="mt-4 text-sm text-gray-300 space-y-2">
-            <p>Agrega estas variables de entorno (Production):</p>
-            <ul className="list-disc pl-5 text-gray-300">
-              <li>
-                <code className="text-gray-100">VITE_SUPABASE_URL</code>
-              </li>
-              <li>
-                <code className="text-gray-100">VITE_SUPABASE_ANON_KEY</code>
-              </li>
-            </ul>
-            <p className="text-xs text-gray-500">
-              Una vez configuradas, redeploy y ya podrás usar login y acciones reales.
-            </p>
+  const missing = !url || !key;
+
+  return (
+    <>
+      {missing && (
+        <div className="fixed top-3 left-3 right-3 z-50">
+          <div className="max-w-3xl mx-auto bg-[#121216] border border-[#1f1f25] rounded-2xl px-4 py-3 text-sm text-gray-200">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div>
+                <span className="font-semibold text-white">Demo mode:</span>{" "}
+                falta configurar Supabase. El Dashboard se ve, pero login/acciones de escritura están deshabilitadas.
+              </div>
+              <div className="text-xs text-gray-500">
+                Requiere: <code>VITE_SUPABASE_URL</code> + <code>VITE_SUPABASE_ANON_KEY</code>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    );
-  }
-
-  return <>{children}</>;
+      )}
+      {children}
+    </>
+  );
 }
